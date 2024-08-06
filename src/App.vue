@@ -8,7 +8,6 @@ import FilterSort from './components/FilterSort.vue';
 
 <template>
    <Header />
-<FilterSort/>
    <Home />
 
 </template>

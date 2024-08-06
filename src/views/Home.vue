@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto p-4">
+    <FilterSort @filter="filterProducts" @sort="sortProducts" />
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-if="error" class="text-center text-red-500">{{ error }}</div>
     <div
@@ -20,7 +21,7 @@ import ProductCard from "../components/ProductCard.vue";
 import FilterSort from "../components/FilterSort.vue";
 
 export default {
-  components: { ProductCard },
+  components: { ProductCard, FilterSort },
   data() {
     return {
       products: [],
