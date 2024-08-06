@@ -23,7 +23,7 @@ Description: The product detail page shows detailed information about a specific
 View Product Information: See comprehensive details about the product.
 Go Back to Products: Click the "Back to Products" button to return to the home page.
 
-<img src="images/Screenshot (210).png" alt="Detail Page screenshot"
+<img src="images/Screenshot (210).png" alt="Detail Page screenshot">
 
 
 
