@@ -17,5 +17,29 @@
 
 
 <script>
-
+export default {
+  data() {
+    return {
+      categories: [],
+    };
+  },
+  methods: {
+    fetchCategories() {
+      fetch('https://fakestoreapi.com/products/categories')
+        .then(response => response.json())
+        .then(data => {
+          this.categories = data;
+        });
+    },
+    filter(event) {
+      this.$emit('filter', event.target.value);
+    },
+    sort(event) {
+      this.$emit('sort', event.target.value);
+    },
+  },
+  created() {
+    this.fetchCategories();
+  },
+};
 </script>
