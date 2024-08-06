@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-4xl">
+    <!-- Back Button -->
     <button 
       @click="goBack" 
       class="mb-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-600 transition duration-200"
@@ -9,6 +10,8 @@
     <div v-if="loading" class="flex items-center justify-center h-screen">
       <div class="text-lg text-gray-500">Loading...</div>
     </div>
+
+    <!-- Detail Card -->
     <div v-else class="flex flex-col md:flex-row gap-6">
       <img 
         class="w-full md:w-1/3 h-auto object-cover rounded-lg shadow-md"

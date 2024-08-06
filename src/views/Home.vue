@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto p-4">
+    <!-- Loading and error -->
     <FilterSort @filter="filterProducts" @sort="sortProducts" />
     <div v-if="loading" class="text-center">Loading...</div>
     <div v-if="error" class="text-center text-red-500">{{ error }}</div>
@@ -7,6 +8,7 @@
       v-else
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
     >
+    <!-- Applying the styling to the fetched data -->
       <ProductCard
         v-for="product in filteredProducts"
         :key="product.id"
@@ -15,6 +17,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import ProductCard from "../components/ProductCard.vue";
