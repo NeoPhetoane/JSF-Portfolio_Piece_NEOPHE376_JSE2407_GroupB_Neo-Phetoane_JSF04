@@ -8,7 +8,8 @@
       v-else
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
     >
-    <!-- Applying the styling to the fetched data -->
+        <!-- Applying the styling to the fetched data -->
+
       <ProductCard
         v-for="product in filteredProducts"
         :key="product.id"
@@ -18,8 +19,8 @@
   </div>
 </template>
 
-
 <script>
+import { mapGetters, mapActions } from "vuex";
 import ProductCard from "../components/ProductCard.vue";
 import FilterSort from "../components/FilterSort.vue";
 
@@ -30,31 +31,11 @@ export default {
       products: [],
       loading: true,
       error: null,
-      filteredProducts: [],
-      categories: [],
-      selectedCategory: "",
-      sortOrder: "default",
     };
   },
-  methods: {
-    fetchProducts() {
-      fetch("https://fakestoreapi.com/products")
-        .then((response) => response.json())
-        .then((data) => {
-          this.products = data;
-          this.applyFiltersAndSorting();
-          this.loading = false;
-        });
-    },
-    filterProducts(category) {
-      this.selectedCategory = category;
-      this.applyFiltersAndSorting();
-    },
-    sortProducts(order) {
-      this.sortOrder = order;
-      this.applyFiltersAndSorting();
-    },
-    applyFiltersAndSorting() {
+  computed: {
+    ...mapGetters(["selectedCategory", "sortOrder"]),
+    filteredProducts() {
       let filtered = this.products;
       if (this.selectedCategory) {
         filtered = filtered.filter(
@@ -68,10 +49,20 @@ export default {
       } else if (this.sortOrder === "default") {
         filtered.sort((a, b) => a.id - b.id);
       }
-      this.filteredProducts = filtered;
+      return filtered;
     },
   },
-
+  methods: {
+    ...mapActions(["updateCategory", "updateSortOrder"]),
+    fetchProducts() {
+      fetch("https://fakestoreapi.com/products")
+        .then((response) => response.json())
+        .then((data) => {
+          this.products = data;
+          this.loading = false;
+        });
+    },
+  },
   mounted() {
     this.fetchProducts();
   },
