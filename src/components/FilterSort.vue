@@ -7,6 +7,7 @@
       >Filter by Category:</label
     >
     <select
+      v-model="selectedCategory"
       @change="filter($event)"
       class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
     >
@@ -20,7 +21,8 @@
     <label for="sort" class="block text-sm font-medium text-gray-700"
       >Sort by Price:</label
     >
-    <select @change="sort($event)">
+    <select v-model="sortOrder"
+     @change="sort($event)">
       <option value="default">Default</option>
       <option value="lowest">Lowest Price</option>
       <option value="highest">Highest Price</option>
@@ -29,13 +31,17 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
     return {
       categories: [],
     };
+  },
+
+  computed: {
+    ...mapState(['selectedCategory', 'sortOrder']), // Bind to Vuex store
   },
   methods: {
     ...mapActions(["updateCategory", "updateSortOrder"]),
