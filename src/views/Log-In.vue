@@ -49,7 +49,7 @@
             :disabled="loading"
           >
             <!-- Loading -->
-            {{ loading ? 'Loading...' : 'Login' }}
+            {{ loading ? 'Logging In...' : 'Log In' }}
           </button>
         </form>
       </div>
@@ -84,7 +84,7 @@
           });
   
           if (!response.ok) {
-            throw new Error('Failed to log in');
+            throw new Error('Invalid credentials');
           }
   
           const data = await response.json();
