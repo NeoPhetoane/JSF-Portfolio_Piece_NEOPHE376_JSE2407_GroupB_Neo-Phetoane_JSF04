@@ -54,6 +54,12 @@ export default {
   },
   methods: {
     ...mapActions(["updateCategory", "updateSortOrder"]),
+    filterProducts(category) {
+      this.updateCategory(category);
+    },
+    sortProducts(order) {
+      this.updateSortOrder(order);
+    },
     fetchProducts() {
       fetch("https://fakestoreapi.com/products")
         .then((response) => response.json())
