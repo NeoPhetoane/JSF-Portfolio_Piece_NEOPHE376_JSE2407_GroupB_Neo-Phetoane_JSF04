@@ -4,6 +4,8 @@ import Home from './views/Home.vue';
 import ProductDetail from './views/ProductDetail.vue';
 import Login from "./views/Log-In.vue";
 import Cart from "./views/Cart.vue";
+import Comparison from "./views/Comparison.vue";
+import Wishlist from "./views/Wishlist.vue"
 
 const routes = [
   {
@@ -26,7 +28,20 @@ const routes = [
     name: "Cart",
     component: Cart,
     meta: { requiresAuth: true },
-  }
+  },
+{
+  path: "/comparison",
+  name: "Comparison",
+  component: Comparison,
+  meta: { requiresAuth: true }
+},
+
+{
+  path: "/wishlist",
+  name: "Wishlist",
+  component: Wishlist,
+  meta: { requiresAuth: true },
+}
 ];
 
 const router = createRouter({
