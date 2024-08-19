@@ -1,7 +1,12 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+      <h2 v-if="!isLoggedIn" class="text-2xl font-bold text-center mb-6">
+        Login
+      </h2>
+      <h2 v-else class="text-2xl font-bold text-center mb-6">
+        Are you sure you want to Logout?
+      </h2>
 
       <!-- Displaying error message -->
       <div v-if="error" class="text-red-500 text-sm text-center mb-4">
@@ -9,7 +14,7 @@
       </div>
 
       <!-- Login form -->
-      <form @submit.prevent="login">
+      <form v-if="!isLoggedIn" @submit.prevent="login">
         <div class="mb-4">
           <label for="username" class="block text-gray-700">Username</label>
           <input
@@ -42,15 +47,24 @@
           </button>
         </div>
 
+        <!-- Loading -->
         <button
           type="submit"
           class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
           :disabled="loading"
         >
-          <!-- Loading -->
           {{ loading ? "Logging In..." : "Log In" }}
         </button>
       </form>
+
+      <!-- Logout Button -->
+      <button
+        v-if="isLoggedIn"
+        @click="handleLogout"
+        class="w-full bg-red-500 text-white py-2 px-4 rounded-md mt-4"
+      >
+        Logout
+      </button>
     </div>
   </div>
 </template>
@@ -64,6 +78,7 @@ export default {
       error: null,
       loading: false,
       showPassword: false,
+      isLoggedIn: false,
     };
   },
   methods: {
@@ -94,7 +109,7 @@ export default {
         // Handle successful login
         if (data.token) {
           localStorage.setItem("authToken", data.token);
-
+          this.isLoggedIn = true;
           // Check if there's a redirect query parameter
           const redirectPath = this.$route.query.redirect || "/";
           // Redirect to the intended route or home page if no redirect is specified
@@ -108,6 +123,17 @@ export default {
         this.loading = false; // End loading
       }
     },
+    handleLogout() {
+      localStorage.removeItem("authToken");
+      this.isLoggedIn = false;
+      this.username = "";
+      this.password = "";
+    },
+  },
+  mounted() {
+    // Check if user is already logged in
+    const token = localStorage.getItem("authToken");
+    this.isLoggedIn = !!token;
   },
 };
 </script>
