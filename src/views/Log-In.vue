@@ -94,7 +94,11 @@ export default {
         // Handle successful login
         if (data.token) {
           localStorage.setItem("authToken", data.token);
-          this.$router.push({ name: "Home" }); // Redirect to Home page
+
+          // Check if there's a redirect query parameter
+          const redirectPath = this.$route.query.redirect || "/";
+          // Redirect to the intended route or home page if no redirect is specified
+          this.$router.push(redirectPath);
         } else {
           this.error = "Login failed: Invalid credentials";
         }

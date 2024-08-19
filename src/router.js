@@ -37,7 +37,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem('authToken');
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-    next({ name: 'Login' }); // Redirect to Login if not authenticated
+    next({ name: 'Login', query: {redirect: to.fullPath} }); // Redirect to Login if not authenticated, passing the original route.
   } else {
     next();
   }
