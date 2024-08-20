@@ -38,7 +38,7 @@
           <td class="py-2">Actions</td>
           <td v-for="product in comparisonList" :key="product.id" class="py-2">
             <button
-             
+              @click="removeFromComparison(product.id)"
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
             >
               Remove
@@ -48,7 +48,7 @@
       </tbody>
     </table>
     <button
-     
+      @click="clearComparisonList"
       class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4"
     >
       Clear Comparison List
@@ -57,5 +57,19 @@
 </template>
 
 <script>
-
+export default {
+  computed: {
+    comparisonList() {
+      return this.$store.getters.comparisonList;
+    },
+  },
+  methods: {
+    removeFromComparison(productId) {
+      this.$store.dispatch("removeFromComparison", productId);
+    },
+    clearComparisonList() {
+      this.$store.dispatch("clearComparisonList");
+    },
+  },
+};
 </script>
