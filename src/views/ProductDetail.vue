@@ -33,6 +33,7 @@
 
         <!-- Add to Cart Button -->
         <button
+          @click="addToCart"
           class="px-4 py-2 bg-green-500 text-white font-semibold rounded-md shadow hover:bg-green-600 transition duration-200"
         >
           Add to Cart
@@ -63,9 +64,14 @@ export default {
     goBack() {
       this.$router.push("/");
     },
+    addToCart() {
+      this.$store.dispatch('addToCart', this.product);
+      alert("Product added to cart!");
+    },
   },
   mounted() {
     this.fetchProduct();
+    this.$store.dispatch('initializeCart'); // Initialize cart from localStorage
   },
 };
 </script>
