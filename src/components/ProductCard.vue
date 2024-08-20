@@ -68,7 +68,11 @@
           />
         </svg>
       </button>
-      <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
+      <button @click="addToComparison(product)" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
+        <p>Add to comparison</p>
+      </button>
+
+      <button  @click="addToCart(product)" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
         <p>Add to cart</p>
       </button>
     </div>
@@ -78,5 +82,20 @@
 <script>
 export default {
   props: ['product'],
+
+  methods: {
+    addToCart(product) {
+      this.$store.dispatch('addToCart', product);
+    },
+    addToComparison(product) {
+      this.$store.dispatch('addToComparison', product);
+    },
+  },
+
+
+
 };
+
+
+
 </script>
