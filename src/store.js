@@ -4,6 +4,8 @@ export default createStore({
   state: {
     selectedCategory: '',
     sortOrder: 'default',
+    cart: [],
+    cartTotal: 0,
   },
   mutations: {
     setCategory(state, category) {
@@ -12,6 +14,25 @@ export default createStore({
     setSortOrder(state, order) {
       state.sortOrder = order;
     },
+    addToCart(state, product) {
+      const existingProduct = state.cart.find(item => item.id === product.id);
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        state.cart.push({ ...product, quantity: 1 });
+      }
+      state.cartTotal = state.cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },
+    setCart(state, cart) {
+      state.cart = cart;
+      state.cartTotal = state.cart.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    }
   },
   actions: {
     updateCategory({ commit }, category) {
@@ -20,9 +41,19 @@ export default createStore({
     updateSortOrder({ commit }, order) {
       commit('setSortOrder', order);
     },
+    addToCart({ commit, state }, product) {
+      commit('addToCart', product);
+      localStorage.setItem('cart', JSON.stringify(state.cart));
+    },
+    initializeCart({ commit }) {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      commit('setCart', cart);
+    }
   },
   getters: {
     selectedCategory: (state) => state.selectedCategory,
     sortOrder: (state) => state.sortOrder,
+    cart: (state) => state.cart,
+    cartTotal: (state) => state.cartTotal,
   },
 });
