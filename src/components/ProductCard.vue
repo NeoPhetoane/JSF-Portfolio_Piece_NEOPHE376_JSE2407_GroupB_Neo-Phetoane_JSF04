@@ -1,29 +1,29 @@
 <template>
   <div
-    class="flex flex-col max-h-[32rem] cursor-pointer max-w-xs hover:-translate-y-1 hover:scale-105 duration-300 bg-white border border-slate-200 shadow shadow-slate-950/5 rounded-2xl overflow-hidden"
+    class="flex flex-col max-h-[36rem] cursor-pointer w-full md:max-w-sm transform hover:translate-y-2 hover:scale-105 transition-all duration-300 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden hover:shadow-2xl"
   >
     <router-link :to="`/product/${product.id}`" class="flex flex-col h-full">
       <!-- Product Image -->
       <img
         :src="product.image"
         alt="Product image"
-        class="object-contain h-48 mt-3 mx-auto"
+        class="object-cover h-48 md:h-56 lg:h-64 mt-2 mx-auto transition-transform duration-300 hover:scale-110"
       />
 
       <!-- Product Details -->
-      <div class="flex-1 flex flex-col p-4">
+      <div class="flex-1 flex flex-col p-4 space-y-2">
         <!-- Product Title -->
-        <header class="mb-2">
-          <h2 class="text-lg line-clamp-2 font-extrabold leading-snug text-slate-600">
+        <header class="mb-1">
+          <h2 class="text-lg md:text-xl font-bold leading-tight text-gray-800 line-clamp-2">
             {{ product.title }}
           </h2>
         </header>
 
         <!-- Product Rating and Reviews -->
-        <div class="flex gap-2">
+        <div class="flex items-center gap-2 text-sm md:text-base text-gray-600">
           <svg
             v-if="product.rating"
-            class="inline-block h-5 w-5 text-yellow-400"
+            class="h-5 w-5 md:h-6 md:w-6 text-red-500"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -32,17 +32,17 @@
             />
           </svg>
           <div>{{ product.rating ? product.rating.rate : 'No Rating' }}</div>
-          <div>Reviews: <span>{{ product.rating ? product.rating.count : 'N/A' }}</span></div>
+          <div class="ml-1">• Reviews: <span>{{ product.rating ? product.rating.count : 'N/A' }}</span></div>
         </div>
 
         <!-- Product Price -->
-        <div class="text-base font-extrabold text-slate-500 leading-snug mt-2">
-          <h2>${{ product.price }}</h2>
+        <div class="text-lg md:text-xl font-bold text-gray-700 mt-2">
+          ${{ product.price }}
         </div>
 
         <!-- Product Category -->
         <div class="flex mt-2">
-          <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+          <span class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs md:text-sm font-medium text-blue-800">
             {{ product.category }}
           </span>
         </div>
@@ -50,10 +50,10 @@
     </router-link>
 
     <!-- Action Buttons -->
-    <div class="flex items-center justify-between p-4 border-t border-slate-200 bg-gray-50">
-      <button>
+    <div class="flex items-center justify-between p-4 border-t border-gray-200 bg-gray-100">
+      <button class="text-gray-400 hover:text-red-600 transition-colors duration-300 transform hover:scale-125">
         <svg
-          class="h-6 w-6 text-gray-400 hover:text-red-500"
+          class="h-6 w-6 md:h-7 md:w-7"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -68,12 +68,12 @@
           />
         </svg>
       </button>
-      <button @click="addToComparison(product)" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
-        <p>Add to comparison</p>
+      <button @click="addToComparison(product)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-110">
+        <p>Add to Compare</p>
       </button>
 
-      <button  @click="addToCart(product)" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-lg">
-        <p>Add to cart</p>
+      <button @click="addToCart(product)" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-110">
+        <p>Add to Cart</p>
       </button>
     </div>
   </div>
@@ -91,11 +91,5 @@ export default {
       this.$store.dispatch('addToComparison', product);
     },
   },
-
-
-
 };
-
-
-
 </script>
