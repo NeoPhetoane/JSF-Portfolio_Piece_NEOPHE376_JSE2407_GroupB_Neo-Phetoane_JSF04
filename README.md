@@ -74,3 +74,8 @@ Go Back to Products: Click the "Back to Products" button to return to the home p
 **Deployed version on Netlify**
 
 https://myswiftcartstore.netlify.app 
+
+
+**Zoom Presentation Video**
+
+<video src="images/video1264520409.mp4"
