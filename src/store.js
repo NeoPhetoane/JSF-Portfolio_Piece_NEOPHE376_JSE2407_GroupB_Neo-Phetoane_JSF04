@@ -70,26 +70,30 @@ export default createStore({
       commit("setCart", cart);
     },
     addToComparison({ commit, state }, product) {
-      commit('addToComparison', product);
-      localStorage.setItem('comparisonList', JSON.stringify(state.comparisonList));
+      commit("addToComparison", product);
+      localStorage.setItem(
+        "comparisonList",
+        JSON.stringify(state.comparisonList)
+      );
     },
     removeFromComparison({ commit, state }, productId) {
-      commit('removeFromComparison', productId);
-      localStorage.setItem('comparisonList', JSON.stringify(state.comparisonList));
+      commit("removeFromComparison", productId);
+      localStorage.setItem(
+        "comparisonList",
+        JSON.stringify(state.comparisonList)
+      );
     },
-    
+
     clearComparisonList({ commit }) {
-      commit('clearComparisonList');
-      localStorage.removeItem('comparisonList');
-    }
-
-
+      commit("clearComparisonList");
+      localStorage.removeItem("comparisonList");
+    },
   },
   getters: {
     selectedCategory: (state) => state.selectedCategory,
     sortOrder: (state) => state.sortOrder,
     cart: (state) => state.cart,
     cartTotal: (state) => state.cartTotal,
-    comparisonList: (state) => state.comparisonList, 
+    comparisonList: (state) => state.comparisonList,
   },
 });
