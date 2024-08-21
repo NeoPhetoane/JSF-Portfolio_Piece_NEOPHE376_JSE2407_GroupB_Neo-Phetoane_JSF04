@@ -49,7 +49,8 @@ export default createStore({
         (total, item) => total + item.price * item.quantity,
         0
       );
-    },wishlist(state, wishlist) {
+    },
+    wishlist(state, wishlist) {
       state.wishlist = wishlist;
       state.wishlistTotal = state.wishlist.reduce(
         (total, item) => total + item.price * item.quantity,
@@ -121,7 +122,6 @@ export default createStore({
       );
     },
 
-
     removeFromComparison({ commit, state }, productId) {
       commit("removeFromComparison", productId);
       localStorage.setItem(
@@ -138,6 +138,30 @@ export default createStore({
       commit("toggleTheme");
     },
   },
+
+
+  applyRandomDiscounts({ state, commit }) {
+    // Select 5 random products
+    let discountedProducts = [...state.products];
+    discountedProducts = discountedProducts.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+    // Apply random discounts
+    discountedProducts = discountedProducts.map(product => {
+      const discountPercentage = Math.floor(Math.random() * 31) + 10; // Random discount between 10% and 40%
+      const discountedPrice = (product.price * (100 - discountPercentage)) / 100;
+      return {
+        ...product,
+        originalPrice: product.price,
+        price: discountedPrice.toFixed(2),
+        discountPercentage,
+        saleEndDate: new Date(Date.now() + Math.floor(Math.random() * 10) * 86400000).toISOString(), // Random future date
+      };
+    });
+
+    commit('setDiscountedProducts', discountedProducts);
+  },
+
+
   getters: {
     selectedCategory: (state) => state.selectedCategory,
     sortOrder: (state) => state.sortOrder,

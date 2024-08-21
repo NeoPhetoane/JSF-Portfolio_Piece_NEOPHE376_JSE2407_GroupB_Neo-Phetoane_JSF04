@@ -19,6 +19,7 @@
           <p class="text-lg font-semibold text-gray-800 mt-2">
             {{ formatPrice(item.price) }}
           </p>
+          <p class="text-gray-600 mb-4">{{ item.description }}</p>
           <div class="flex items-center mt-4 space-x-4">
             <button
               @click="addToCart(item)"
@@ -97,7 +98,7 @@ export default {
       }
     },
     addToCart(product) {
-      this.$store.dispatch('addToCart', product);
+      this.$store.dispatch("addToCart", product);
     },
   },
   mounted() {
