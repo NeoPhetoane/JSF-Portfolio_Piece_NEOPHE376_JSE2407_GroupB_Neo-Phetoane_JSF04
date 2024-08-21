@@ -1,16 +1,31 @@
 <script setup>
 import Header from './components/Header.vue';
-import ThemeToggle from './components/ThemeToggle.vue';
+
 </script>
 
 <template>
    <div>
    <Header />
-   <ThemeToggle />
+   <div id="app" :class="themeClass">
+   <ThemeToggleButton />
+  </div>
 <router-view/>
 </div>
 </template>
 
-<style>
+<script>
+import { mapGetters } from "vuex";
+import ThemeToggleButton from "./components/ThemeToggle.vue";
 
-</style>
+export default {
+  components: {
+    ThemeToggleButton,
+  },
+  computed: {
+    ...mapGetters(["theme"]),
+    themeClass() {
+      return this.theme === "light" ? "light-mode" : "dark-mode";
+    },
+  },
+};
+</script>

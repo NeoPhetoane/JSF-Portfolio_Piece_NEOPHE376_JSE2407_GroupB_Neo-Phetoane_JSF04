@@ -1,0 +1,23 @@
+:root {
+  --bg-light: #ffffff;
+  --text-light: #000000;
+  --border-light: #dddddd;
+
+  --bg-dark: #121212;
+  --text-dark: #e0e0e0;
+  --border-dark: #333333;
+}
+
+/* Light Mode */
+.light-mode {
+  --bg: var(--bg-light);
+  --text: var(--text-light);
+  --border: var(--border-light);
+}
+
+/* Dark Mode */
+.dark-mode {
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --border: var(--border-dark);
+}

@@ -1,6 +1,7 @@
 <template>
+  <div :class="['component-root', themeClass]"> 
   <div
-    class="flex flex-col max-h-[36rem] cursor-pointer w-full md:max-w-sm transform hover:translate-y-2 hover:scale-105 transition-all duration-300 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden hover:shadow-2xl"
+    class=" flex flex-col max-h-[36rem] cursor-pointer w-full md:max-w-sm transform hover:translate-y-2 hover:scale-105 transition-all duration-300 bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden hover:shadow-2xl"
   >
     <router-link :to="`/product/${product.id}`" class="flex flex-col h-full">
       <!-- Product Image -->
@@ -77,12 +78,20 @@
       </button>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   props: ['product'],
 
+  computed: {
+    ...mapGetters(['theme']),
+    themeClass() {
+      return this.theme === 'light' ? 'light-mode' : 'dark-mode';
+  },
+  },
   methods: {
     addToCart(product) {
       this.$store.dispatch('addToCart', product);
