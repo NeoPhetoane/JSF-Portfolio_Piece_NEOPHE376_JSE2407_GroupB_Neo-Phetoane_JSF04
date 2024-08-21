@@ -1,11 +1,14 @@
 import { createStore } from "vuex";
 
+
 export default createStore({
   state: {
     selectedCategory: "",
     sortOrder: "default",
     cart: [],
     cartTotal: 0,
+    Wishlist: [],
+    wishlistTotal: 0,
     comparisonList: [],
     theme: localStorage.getItem("theme") || "light", 
   },
@@ -35,6 +38,27 @@ export default createStore({
         0
       );
     },
+
+//Wishlist mutations
+    addToWishlist(state, product) {
+      const existingProduct = state.Wishlist.find((item) => item.id === product.id);
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        state.Wishlist.push({ ...product, quantity: 1 });
+      }
+      state.WishlistTotal = state.Wishlist.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },Wishlist(state, wishlist) {
+      state.wishlist = wishlist;
+      state.wishlistTotal = state.wishlist.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+    },
+
     addToComparison(state, product) {
       const existingProduct = state.comparisonList.find(
         (item) => item.id === product.id
@@ -82,6 +106,24 @@ export default createStore({
         JSON.stringify(state.comparisonList)
       );
     },
+
+    addToWishlist({ commit, state }, product) {
+      commit("addToWishlist", product);
+      localStorage.setItem("wishlist", JSON.stringify(state.wishlist));
+    },
+    initializeWishlist({ commit }) {
+      const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+      commit("setWishlist", wishlist);
+    },
+    addToComparison({ commit, state }, product) {
+      commit("addToComparison", product);
+      localStorage.setItem(
+        "comparisonList",
+        JSON.stringify(state.comparisonList)
+      );
+    },
+
+
     removeFromComparison({ commit, state }, productId) {
       commit("removeFromComparison", productId);
       localStorage.setItem(
@@ -103,6 +145,11 @@ export default createStore({
     sortOrder: (state) => state.sortOrder,
     cart: (state) => state.cart,
     cartTotal: (state) => state.cartTotal,
+
+
+    wishlist: (state) => state.wishlist,
+    wishlistTotal: (state) => state.wishlistTotal,
+
     comparisonList: (state) => state.comparisonList,
     theme: (state) => state.theme,
   },
