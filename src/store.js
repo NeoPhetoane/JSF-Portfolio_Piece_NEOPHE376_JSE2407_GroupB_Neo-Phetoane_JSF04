@@ -7,7 +7,7 @@ export default createStore({
     sortOrder: "default",
     cart: [],
     cartTotal: 0,
-    Wishlist: [],
+    wishlist: [],
     wishlistTotal: 0,
     comparisonList: [],
     theme: localStorage.getItem("theme") || "light", 
@@ -38,20 +38,18 @@ export default createStore({
         0
       );
     },
-
-//Wishlist mutations
     addToWishlist(state, product) {
-      const existingProduct = state.Wishlist.find((item) => item.id === product.id);
+      const existingProduct = state.wishlist.find((item) => item.id === product.id);
       if (existingProduct) {
         existingProduct.quantity += 1;
       } else {
-        state.Wishlist.push({ ...product, quantity: 1 });
+        state.wishlist.push({ ...product, quantity: 1 });
       }
-      state.WishlistTotal = state.Wishlist.reduce(
+      state.wishlistTotal = state.wishlist.reduce(
         (total, item) => total + item.price * item.quantity,
         0
       );
-    },Wishlist(state, wishlist) {
+    },wishlist(state, wishlist) {
       state.wishlist = wishlist;
       state.wishlistTotal = state.wishlist.reduce(
         (total, item) => total + item.price * item.quantity,
@@ -145,7 +143,6 @@ export default createStore({
     sortOrder: (state) => state.sortOrder,
     cart: (state) => state.cart,
     cartTotal: (state) => state.cartTotal,
-
 
     wishlist: (state) => state.wishlist,
     wishlistTotal: (state) => state.wishlistTotal,

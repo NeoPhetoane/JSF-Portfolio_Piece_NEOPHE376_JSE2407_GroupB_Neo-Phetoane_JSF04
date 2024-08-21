@@ -52,7 +52,7 @@
 
     <!-- Action Buttons -->
     <div class="flex items-center justify-between p-4 border-t border-gray-200 bg-gray-100">
-      <button class="text-gray-400 hover:text-red-600 transition-colors duration-300 transform hover:scale-125">
+      <button @click="addToWishlist(product)"class="text-gray-400 hover:text-red-600 transition-colors duration-300 transform hover:scale-125">
         <svg
           class="h-6 w-6 md:h-7 md:w-7"
           aria-hidden="true"
@@ -96,9 +96,13 @@ export default {
     addToCart(product) {
       this.$store.dispatch('addToCart', product);
     },
+    addToWishlist(product) {
+      this.$store.dispatch('addToWishlist', product);
+    },
     addToComparison(product) {
       this.$store.dispatch('addToComparison', product);
     },
+
   },
 };
 </script>

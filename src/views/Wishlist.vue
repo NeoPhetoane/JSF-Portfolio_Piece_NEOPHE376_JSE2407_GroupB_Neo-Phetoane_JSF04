@@ -54,21 +54,28 @@
         }
       },
       removeItem(productId) {
-        this.WishlistItems = this.WishlistItems.filter(item => item.id !== productId);
+        this.wishlistItems = this.wishlistItems.filter(item => item.id !== productId);
         this.saveWishlist();
       },
       clearWishlist() {
         this.wishlistItems = [];
-        this.savewishlist();
+        this.saveWishlist();
       },
       saveWishlist() {
         localStorage.setItem('wishlist', JSON.stringify(this.wishlistItems));
       },
-      loadWishlist() {
-        const savedWishlist = localStorage.getItem('Wishlist');
-        if (savedWishlist) {
-          this.wishlistItems = JSON.parse(savedWishlist);
-        }
+        loadWishlist() {
+    const savedWishlist = localStorage.getItem('wishlist');
+    if (savedWishlist) {
+      try {
+        this.wishlistItems = JSON.parse(savedWishlist);
+      } catch (e) {
+        console.error('Failed to parse wishlist from localStorage:', e);
+        this.wishlistItems = [];
+      }
+    } else {
+      this.wishlistItems = [];
+    }
       },
     },
     mounted() {
