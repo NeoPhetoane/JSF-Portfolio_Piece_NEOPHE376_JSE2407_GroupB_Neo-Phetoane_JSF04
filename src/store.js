@@ -7,6 +7,7 @@ export default createStore({
     cart: [],
     cartTotal: 0,
     comparisonList: [],
+    theme: localStorage.getItem("theme") || "light", 
   },
   mutations: {
     setCategory(state, category) {
@@ -53,7 +54,12 @@ export default createStore({
     clearComparisonList(state) {
       state.comparisonList = [];
     },
+
+    toggleTheme(state) {
+      state.theme = state.theme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", state.theme);
   },
+},
   actions: {
     updateCategory({ commit }, category) {
       commit("setCategory", category);
@@ -88,6 +94,9 @@ export default createStore({
       commit("clearComparisonList");
       localStorage.removeItem("comparisonList");
     },
+    toggleTheme({ commit }) {
+      commit("toggleTheme");
+    },
   },
   getters: {
     selectedCategory: (state) => state.selectedCategory,
@@ -95,5 +104,6 @@ export default createStore({
     cart: (state) => state.cart,
     cartTotal: (state) => state.cartTotal,
     comparisonList: (state) => state.comparisonList,
+    theme: (state) => state.theme,
   },
 });
